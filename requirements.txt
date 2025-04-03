@@ -1,0 +1,7 @@
+pytest
+pytest-cov
+allure-pytest
+selenium
+requests
+pandas
+streamlit

@@ -1,0 +1,15 @@
+stages:
+  - test
+  - report
+
+test:
+  stage: test
+  script:
+    - pip install -r requirements.txt
+    - pytest --alluredir=reports/allure-results --cov=tests
+
+report:
+  stage: report
+  script:
+    - allure generate reports/allure-results -o reports/allure-html
+    - echo "Allure report gerado com sucesso."
