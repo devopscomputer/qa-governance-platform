@@ -1,7 +1,20 @@
+# Test Framework
 pytest
 pytest-cov
 allure-pytest
+
+# Web Automation
 selenium
+
+# API Testing
 requests
+
+# Metrics & Data Analysis
 pandas
+
+# Dashboard & Visualization
 streamlit
+plotly
+
+# Optional (para melhorar compatibilidade com drivers headless no Docker)
+webdriver-manager

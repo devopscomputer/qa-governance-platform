@@ -1,0 +1,68 @@
+pipeline {
+  agent {
+    docker {
+      image 'python:3.11'
+      args '-u root' // para permitir instalação de dependências
+    }
+  }
+
+  environment {
+    DISPLAY = ":99"
+  }
+
+  options {
+    timestamps()
+  }
+
+  stages {
+
+    stage('Install dependencies') {
+      steps {
+        sh '''
+          apt-get update && apt-get install -y xvfb
+          pip install --upgrade pip
+          pip install -r requirements.txt
+        '''
+      }
+    }
+
+    stage('Run tests') {
+      steps {
+        sh '''
+          Xvfb :99 &
+          pytest tests/ --env=dev --cov=tests --cov-report=xml --alluredir=reports/allure-results
+        '''
+      }
+    }
+
+    stage('Generate Metrics') {
+      steps {
+        sh '''
+          python metrics/analyze.py
+          python metrics/coverage_report.py
+          python metrics/flakiness_tracker.py
+        '''
+      }
+    }
+
+    stage('Archive Artifacts') {
+      steps {
+        archiveArtifacts artifacts: 'reports/allure-results/**', fingerprint: true
+        archiveArtifacts artifacts: 'metrics/*.csv', fingerprint: true
+        junit 'reports/allure-results/**/*.xml'
+      }
+    }
+  }
+
+  post {
+    always {
+      echo 'Pipeline executado.'
+    }
+    success {
+      echo '✅ Build finalizado com sucesso.'
+    }
+    failure {
+      echo '❌ Build falhou. Verifique os logs.'
+    }
+  }
+}

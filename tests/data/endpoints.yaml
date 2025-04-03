@@ -1,0 +1,51 @@
+# 📂 data/endpoints.yaml
+
+login:
+  path: /login
+  method: POST
+  description: Autentica usuário com e-mail e senha
+
+users:
+  list:
+    path: /users
+    method: GET
+    description: Retorna lista de todos os usuários
+
+  get_by_id:
+    path: /users/{id}
+    method: GET
+    description: Retorna dados do usuário com ID específico
+    params:
+      - name: id
+        type: integer
+        required: true
+        example: 1
+
+  create:
+    path: /users
+    method: POST
+    description: Cria um novo usuário
+    body:
+      - name: name
+        type: string
+        required: true
+      - name: email
+        type: string
+        required: true
+
+  update:
+    path: /users/{id}
+    method: PUT
+    description: Atualiza os dados de um usuário
+    params:
+      - id
+    body:
+      - name: name
+        type: string
+      - name: email
+        type: string
+
+  delete:
+    path: /users/{id}
+    method: DELETE
+    description: Remove usuário por ID

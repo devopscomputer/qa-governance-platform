@@ -1,0 +1,113 @@
+[
+    {
+      "test_id": "test_login_success",
+      "description": "Valida o login com credenciais válidas e redirecionamento ao dashboard",
+      "module": "UI",
+      "component": "LoginPage",
+      "priority": "high",
+      "type": "smoke, regression, ui",
+      "linked_requirement": "REQ-LOGIN-001",
+      "owner": "paulo.silas"
+    },
+    {
+      "test_id": "test_signup_user",
+      "description": "Valida o cadastro visual de novo usuário via interface web",
+      "module": "UI",
+      "component": "SignupPage",
+      "priority": "medium",
+      "type": "ui, regression",
+      "linked_requirement": "REQ-USER-002",
+      "owner": "paulo.silas"
+    },
+    {
+      "test_id": "test_edit_user_profile",
+      "description": "Testa a edição de dados do perfil do usuário via UI",
+      "module": "UI",
+      "component": "ProfilePage",
+      "priority": "medium",
+      "type": "ui, functional",
+      "linked_requirement": "REQ-PROFILE-001",
+      "owner": "paulo.silas"
+    },
+    {
+      "test_id": "test_alert_display",
+      "description": "Valida mensagens de erro quando campos obrigatórios não são preenchidos",
+      "module": "UI",
+      "component": "LoginPage",
+      "priority": "low",
+      "type": "ui, validation",
+      "linked_requirement": "REQ-FORM-001",
+      "owner": "paulo.silas"
+    },
+    {
+      "test_id": "test_capture_home",
+      "description": "Captura visual da tela inicial para validação visual automatizada",
+      "module": "UI",
+      "component": "HomePage",
+      "priority": "low",
+      "type": "ui, visual, smoke",
+      "linked_requirement": "REQ-HOME-001",
+      "owner": "paulo.silas"
+    },
+    {
+      "test_id": "test_get_user_by_id",
+      "description": "Valida a resposta e contrato do endpoint GET /users/{id} com usuários válidos",
+      "module": "API",
+      "component": "UserService",
+      "priority": "high",
+      "type": "api, contract, regression",
+      "linked_requirement": "REQ-USER-001",
+      "owner": "paulo.silas"
+    },
+    {
+      "test_id": "test_create_user",
+      "description": "Valida o cadastro de usuário via POST /users",
+      "module": "API",
+      "component": "UserService",
+      "priority": "high",
+      "type": "api, functional, regression",
+      "linked_requirement": "REQ-USER-003",
+      "owner": "paulo.silas"
+    },
+    {
+      "test_id": "test_update_user",
+      "description": "Valida a atualização de dados via PUT /users/{id}",
+      "module": "API",
+      "component": "UserService",
+      "priority": "medium",
+      "type": "api, functional",
+      "linked_requirement": "REQ-USER-004",
+      "owner": "paulo.silas"
+    },
+    {
+      "test_id": "test_delete_user",
+      "description": "Valida a exclusão de usuários via DELETE /users/{id}",
+      "module": "API",
+      "component": "UserService",
+      "priority": "medium",
+      "type": "api, functional, destructive",
+      "linked_requirement": "REQ-USER-005",
+      "owner": "paulo.silas"
+    },
+    {
+      "test_id": "test_coverage_health_check",
+      "description": "Verifica se a cobertura geral dos testes está acima do limite mínimo definido",
+      "module": "Metrics",
+      "component": "CoverageReport",
+      "priority": "medium",
+      "type": "kpi, quality-gate",
+      "linked_requirement": "REQ-COVERAGE-001",
+      "owner": "qa.governance"
+    },
+    {
+      "test_id": "test_flaky_tracker_consistency",
+      "description": "Identifica testes instáveis executados com comportamentos inconsistentes (flakey)",
+      "module": "Metrics",
+      "component": "FlakinessTracker",
+      "priority": "medium",
+      "type": "quality-monitor, regression-audit",
+      "linked_requirement": "REQ-FLAKE-001",
+      "owner": "qa.governance"
+    }
+  ]
+  

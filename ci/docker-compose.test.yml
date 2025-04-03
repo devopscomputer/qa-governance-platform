@@ -1,0 +1,6 @@
+version: '3.9'
+services:
+  test-runner:
+    build: ..
+    command: >
+      sh -c "pytest --cov=tests --cov-report=xml --alluredir=reports/allure-results"

@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+
+  qa-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: qa-governance-runner
+    volumes:
+      - ./:/app
+    environment:
+      - DISPLAY=:99
+    depends_on:
+      - selenium
+    command: >
+      sh -c "
+        Xvfb :99 &
+        pytest --env=dev \
+               --cov=tests \
+               --cov-report=xml \
+               --cov-report=term \
+               --alluredir=reports/allure-results &&
+        python metrics/analyze.py &&
+        python metrics/coverage_report.py &&
+        python metrics/flakiness_tracker.py
+      "
+
+  selenium:
+    image: selenium/standalone-chrome:4.10.0
+    container_name: selenium-grid
+    ports:
+      - "4444:4444"
+    shm_size: 2g
+
+  allure:
+    image: frankescobar/allure-docker-service
+    container_name: allure-server
+    ports:
+      - "5050:5050"
+    volumes:
+      - ./reports/allure-results:/app/allure-results
+      - ./reports/allure-report:/app/allure-report
+    environment:
+      CHECK_RESULTS_EVERY_SECONDS: 10
+      KEEP_HISTORY: 1

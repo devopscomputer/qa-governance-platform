@@ -1,0 +1,32 @@
+stages:
+  - test
+  - metrics
+
+variables:
+  DISPLAY: ":99"
+
+qa_governance_tests:
+  stage: test
+  image: python:3.11
+  services:
+    - name: selenium/standalone-chrome:4.10.0
+      alias: selenium
+  before_script:
+    - pip install -r requirements.txt
+  script:
+    - apt-get update && apt-get install -y xvfb
+    - Xvfb :99 &
+    - pytest tests/ --env=dev --cov=tests --cov-report=xml --alluredir=reports/allure-results
+
+generate_metrics:
+  stage: metrics
+  image: python:3.11
+  script:
+    - pip install -r requirements.txt
+    - python metrics/analyze.py
+    - python metrics/coverage_report.py
+    - python metrics/flakiness_tracker.py
+  artifacts:
+    paths:
+      - metrics/
+      - reports/allure-results/
