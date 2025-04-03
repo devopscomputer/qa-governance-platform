@@ -1,8 +1,36 @@
+# 👉 Ambientes virtuais
 venv/
+.env
+.env.*
+
+# 👉 Cache & compilados Python
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# 👉 IDEs e ferramentas
+.idea/
+.vscode/
+*.swp
+
+# 👉 Relatórios e resultados temporários
 reports/allure-results/
 reports/allure-html/
-.env
-*.pyc
-*.log
-.idea/
+coverage.xml
+htmlcov/
+metrics/*.csv
+
+# 👉 Arquivos gerados por execução local
+streamlit_app.py
+*.db
+.DS_Store
+*.bak
+*.tmp
+
+# 👉 Docker & CI
+*.pid
+docker-compose.override.yml
+ci/env.local
+ci/docker-compose.override.yml
