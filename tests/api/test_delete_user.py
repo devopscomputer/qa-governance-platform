@@ -16,4 +16,6 @@ def test_delete_user(api_client, base_url, user_id):
         assert response.status_code in [200, 204], f"Status inesperado: {response.status_code}"
 
     with allure.step("📉 Validar que o recurso foi removido ou tratado corretamente"):
-        assert response.text == "" or response.json().get("id") == user_id
+        assert response.status_code in [200, 204]
+        assert response.text.strip() == "" or response.json() == {} or "id" not in response.json()
+

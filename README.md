@@ -147,6 +147,18 @@ pytest tests/ --env=staging --alluredir=reports/allure-results
 }
 ```
 
+🧠 Execução via PowerShell ou BAT (Windows)
+
+{
+  ./run_qa_dashboard.ps1
+  ou
+  ./run_qa_dashboard.bat
+
+}
+
+
+
+
 ---
 
 ## 📣 Autor
