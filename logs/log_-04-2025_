@@ -1,0 +1,20 @@
+ERROR: file or directory not found: 030.txt
+
+============================= test session starts =============================
+platform win32 -- Python 3.12.6, pytest-8.3.4, pluggy-1.5.0
+rootdir: C:\Users\Paulo\Desktop\qa-governance-platform
+configfile: pytest.ini
+plugins: allure-pytest-2.13.5, anyio-4.9.0, Faker-33.1.0, bdd-8.1.0, cov-6.1.0, xdist-3.6.1
+collected 0 items
+
+============================ no tests ran in 0.03s ============================
+ERROR: file or directory not found: 157.txt
+
+============================= test session starts =============================
+platform win32 -- Python 3.12.6, pytest-8.3.4, pluggy-1.5.0
+rootdir: C:\Users\Paulo\Desktop\qa-governance-platform
+configfile: pytest.ini
+plugins: allure-pytest-2.13.5, anyio-4.9.0, Faker-33.1.0, bdd-8.1.0, cov-6.1.0, xdist-3.6.1
+collected 0 items
+
+============================ no tests ran in 0.17s ============================

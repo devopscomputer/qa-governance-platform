@@ -7,7 +7,7 @@ from datetime import datetime
 RESULTS_DIR = "reports/allure-results"
 OUTPUT_CSV = "metrics/results.csv"
 HISTORY_LOG = "metrics/history_log.csv"
-METADATA_FILE = "test_metadata.json"
+METADATA_FILE = "tests/test_metadata.json"
 
 def extract_allure_results():
     results = []
