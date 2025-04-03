@@ -1,0 +1,378 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.6, pytest-8.3.4, pluggy-1.5.0
+rootdir: C:\Users\Paulo\Desktop\qa-governance-platform
+configfile: pytest.ini
+plugins: allure-pytest-2.13.5, anyio-4.9.0, Faker-33.1.0, bdd-8.1.0, cov-6.1.0, xdist-3.6.1
+collected 13 items
+
+tests\api\test_create_user.py Traceback (most recent call last):
+  File "C:\Users\Paulo\Desktop\qa-governance-platform\tests\conftest.py", line 47, in _log_request
+    response = session.request(method, url, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\requests\adapters.py", line 667, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\urllib3\connectionpool.py", line 716, in urlopen
+    httplib_response = self._make_request(
+                       ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\urllib3\connectionpool.py", line 404, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\urllib3\connectionpool.py", line 1061, in _validate_conn
+    conn.connect()
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\urllib3\connection.py", line 363, in connect
+    self.sock = conn = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\urllib3\connection.py", line 174, in _new_conn
+    conn = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\urllib3\util\connection.py", line 72, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\socket.py", line 976, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Paulo\Desktop\qa-governance-platform\tests\api\test_create_user.py", line 28, in test_create_user
+    response = api_client("post", url, json=payload)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\Desktop\qa-governance-platform\tests\conftest.py", line 41, in _log_request
+    with allure.step(f"\U0001f517 {method.upper()} {url}"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\allure_commons\_allure.py", line 182, in __exit__
+    plugin_manager.hook.stop_step(uuid=self.uuid, title=self.title, exc_type=exc_type, exc_val=exc_val,
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 139, in _multicall
+    raise exception.with_traceback(exception.__traceback__)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\allure_pytest\listener.py", line 57, in stop_step
+    statusDetails=get_status_details(exc_type, exc_val, exc_tb))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\allure_pytest\utils.py", line 175, in get_status_details
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\allure_commons\utils.py", line 272, in format_traceback
+    return ''.join(traceback.format_tb(exc_traceback)) if exc_traceback else None
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\traceback.py", line 59, in format_tb
+    return extract_tb(tb, limit=limit).format()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\traceback.py", line 74, in extract_tb
+    return StackSummary._extract_from_extended_frame_gen(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\traceback.py", line 438, in _extract_from_extended_frame_gen
+    f.line
+  File "C:\Python312\Lib\traceback.py", line 323, in line
+    self._line = linecache.getline(self.filename, self.lineno)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\linecache.py", line 30, in getline
+    lines = getlines(filename, module_globals)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\linecache.py", line 46, in getlines
+    return updatecache(filename, module_globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\linecache.py", line 138, in updatecache
+    with tokenize.open(fullname) as fp:
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\tokenize.py", line 449, in open
+    buffer = _builtin_open(filename, 'rb')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\main.py", line 283, in wrap_session
+    session.exitstatus = doit(config, session) or 0
+                         ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\main.py", line 337, in _main
+    config.hook.pytest_runtestloop(session=session)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 182, in _multicall
+    return outcome.get_result()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_result.py", line 100, in get_result
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 167, in _multicall
+    teardown.throw(outcome._exception)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\logging.py", line 803, in pytest_runtestloop
+    return (yield)  # Run all the tests.
+            ^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 167, in _multicall
+    teardown.throw(outcome._exception)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\terminal.py", line 673, in pytest_runtestloop
+    result = yield
+             ^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\main.py", line 362, in pytest_runtestloop
+    item.config.hook.pytest_runtest_protocol(item=item, nextitem=nextitem)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 182, in _multicall
+    return outcome.get_result()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_result.py", line 100, in get_result
+    raise exc.with_traceback(exc.__traceback__)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 167, in _multicall
+    teardown.throw(outcome._exception)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\warnings.py", line 112, in pytest_runtest_protocol
+    return (yield)
+            ^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 167, in _multicall
+    teardown.throw(outcome._exception)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\assertion\__init__.py", line 176, in pytest_runtest_protocol
+    return (yield)
+            ^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 167, in _multicall
+    teardown.throw(outcome._exception)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\unittest.py", line 429, in pytest_runtest_protocol
+    res = yield
+          ^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 167, in _multicall
+    teardown.throw(outcome._exception)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\faulthandler.py", line 88, in pytest_runtest_protocol
+    return (yield)
+            ^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\runner.py", line 113, in pytest_runtest_protocol
+    runtestprotocol(item, nextitem=nextitem)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\runner.py", line 132, in runtestprotocol
+    reports.append(call_and_report(item, "call", log))
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\runner.py", line 241, in call_and_report
+    call = CallInfo.from_call(
+           ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\runner.py", line 341, in from_call
+    result: TResult | None = func()
+                             ^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\runner.py", line 242, in <lambda>
+    lambda: runtest_hook(item=item, **kwds), when=when, reraise=reraise
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 182, in _multicall
+    return outcome.get_result()
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_result.py", line 100, in get_result
+    raise exc.with_traceback(exc.__traceback__)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 167, in _multicall
+    teardown.throw(outcome._exception)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\threadexception.py", line 92, in pytest_runtest_call
+    yield from thread_exception_runtest_hook()
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\threadexception.py", line 68, in thread_exception_runtest_hook
+    yield
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 167, in _multicall
+    teardown.throw(outcome._exception)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\unraisableexception.py", line 95, in pytest_runtest_call
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\unraisableexception.py", line 70, in unraisable_exception_runtest_hook
+    yield
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 167, in _multicall
+    teardown.throw(outcome._exception)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\logging.py", line 846, in pytest_runtest_call
+    yield from self._runtest_for(item, "call")
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\logging.py", line 829, in _runtest_for
+    yield
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 167, in _multicall
+    teardown.throw(outcome._exception)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\capture.py", line 880, in pytest_runtest_call
+    return (yield)
+            ^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 167, in _multicall
+    teardown.throw(outcome._exception)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\skipping.py", line 257, in pytest_runtest_call
+    return (yield)
+            ^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\runner.py", line 174, in pytest_runtest_call
+    item.runtest()
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py", line 1627, in runtest
+    self.ihook.pytest_pyfunc_call(pyfuncitem=self)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 139, in _multicall
+    raise exception.with_traceback(exception.__traceback__)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\python.py", line 159, in pytest_pyfunc_call
+    result = testfunction(**testargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\Desktop\qa-governance-platform\tests\api\test_create_user.py", line 27, in test_create_user
+    with allure.step(f"\U0001f4e4 Enviando POST para {url} com payload: {payload}"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\allure_commons\_allure.py", line 182, in __exit__
+    plugin_manager.hook.stop_step(uuid=self.uuid, title=self.title, exc_type=exc_type, exc_val=exc_val,
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 139, in _multicall
+    raise exception.with_traceback(exception.__traceback__)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\allure_pytest\listener.py", line 57, in stop_step
+    statusDetails=get_status_details(exc_type, exc_val, exc_tb))
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\allure_pytest\utils.py", line 174, in get_status_details
+    message = format_exception(exception_type, exception)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\allure_commons\utils.py", line 323, in format_exception
+    return '\n'.join(format_exception_only(etype, value)) if etype or value else None
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\traceback.py", line 156, in format_exception_only
+    te = TracebackException(type(value), value, None, compact=True)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\traceback.py", line 811, in __init__
+    context = TracebackException(
+              ^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\traceback.py", line 733, in __init__
+    self.stack = StackSummary._extract_from_extended_frame_gen(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\traceback.py", line 438, in _extract_from_extended_frame_gen
+    f.line
+  File "C:\Python312\Lib\traceback.py", line 323, in line
+    self._line = linecache.getline(self.filename, self.lineno)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\linecache.py", line 30, in getline
+    lines = getlines(filename, module_globals)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\linecache.py", line 46, in getlines
+    return updatecache(filename, module_globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\linecache.py", line 138, in updatecache
+    with tokenize.open(fullname) as fp:
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\tokenize.py", line 449, in open
+    buffer = _builtin_open(filename, 'rb')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\Scripts\pytest.exe\__main__.py", line 7, in <module>
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\config\__init__.py", line 201, in console_main
+    code = main()
+           ^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\config\__init__.py", line 175, in main
+    ret: ExitCode | int = config.hook.pytest_cmdline_main(config=config)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 139, in _multicall
+    raise exception.with_traceback(exception.__traceback__)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\main.py", line 330, in pytest_cmdline_main
+    return wrap_session(config, _main)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\main.py", line 297, in wrap_session
+    config.hook.pytest_keyboard_interrupt(excinfo=excinfo)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_hooks.py", line 513, in __call__
+    return self._hookexec(self.name, self._hookimpls.copy(), kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_manager.py", line 120, in _hookexec
+    return self._inner_hookexec(hook_name, methods, kwargs, firstresult)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 139, in _multicall
+    raise exception.with_traceback(exception.__traceback__)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\pluggy\_callers.py", line 103, in _multicall
+    res = hook_impl.function(*args)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\terminal.py", line 932, in pytest_keyboard_interrupt
+    self._keyboardinterrupt_memo = excinfo.getrepr(funcargs=True)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\_code\code.py", line 690, in getrepr
+    return fmt.repr_excinfo(self)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\_code\code.py", line 1058, in repr_excinfo
+    reprtraceback = self.repr_traceback(excinfo_)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\_code\code.py", line 992, in repr_traceback
+    self.repr_traceback_entry(entry, excinfo if last == entry else None)
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\_code\code.py", line 930, in repr_traceback_entry
+    source = self._getentrysource(entry)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\_code\code.py", line 828, in _getentrysource
+    source = entry.getsource(self.astcache)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\_code\code.py", line 252, in getsource
+    source = self.frame.code.fullsource
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\_code\code.py", line 108, in fullsource
+    full, _ = findsource(self.raw)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Paulo\AppData\Roaming\Python\Python312\site-packages\_pytest\_code\source.py", line 118, in findsource
+    sourcelines, lineno = inspect.findsource(obj)
+                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\inspect.py", line 1092, in findsource
+  File "C:\Python312\Lib\linecache.py", line 46, in getlines
+    return updatecache(filename, module_globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\linecache.py", line 138, in updatecache
+    with tokenize.open(fullname) as fp:
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python312\Lib\tokenize.py", line 449, in open
+    buffer = _builtin_open(filename, 'rb')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt
+
+
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.12.6-final-0 _______________
+
+Coverage XML written to file coverage.xml
+============================ no tests ran in 2.43s ============================
+^CTraceback (most recent call last):
+  File "C:\Users\Paulo\Desktop\qa-governance-platform\run_all_metrics.py", line 8, in <module>
+    print("\U0001f680 Iniciando pipeline de métricas QA...\n")
+  File "C:\msys64\mingw64\lib\python3.12\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f680' in position 0: character maps to <undefined>

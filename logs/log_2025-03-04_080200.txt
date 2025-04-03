@@ -1,0 +1,1054 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.6, pytest-8.3.4, pluggy-1.5.0
+rootdir: C:\Users\Paulo\Desktop\qa-governance-platform
+configfile: pytest.ini
+plugins: allure-pytest-2.13.5, anyio-4.9.0, Faker-33.1.0, bdd-8.1.0, cov-6.1.0, xdist-3.6.1
+collected 13 items
+
+tests\api\test_create_user.py ..                                         [ 15%]
+tests\api\test_delete_user.py ..                                         [ 30%]
+tests\api\test_get_user.py ..                                            [ 46%]
+tests\api\test_update_user.py ..                                         [ 61%]
+tests\ui\test_alert_messages.py E                                        [ 69%]
+tests\ui\test_login.py E                                                 [ 76%]
+tests\ui\test_signup_ui.py E                                             [ 84%]
+tests\ui\test_ui_visuals.py E                                            [ 92%]
+tests\ui\test_user_profile_ui.py E                                       [100%]
+
+=================================== ERRORS ====================================
+____________________ ERROR at setup of test_alert_display _____________________
+
+    @pytest.fixture(scope="function")
+    def browser():
+        from selenium import webdriver
+        from selenium.webdriver.chrome.options import Options
+    
+        options = Options()
+        options.add_argument("--headless")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--window-size=1280,1024")
+        options.add_argument("--disable-dev-shm-usage")
+    
+>       driver = webdriver.Chrome(options=options)
+
+tests\conftest.py:76: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\chrome\webdriver.py:81: in __init__
+    super().__init__(
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\chromium\webdriver.py:106: in __init__
+    super().__init__(
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\webdriver.py:288: in __init__
+    self.start_session(capabilities, browser_profile)
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\webdriver.py:381: in start_session
+    response = self.execute(Command.NEW_SESSION, parameters)
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\webdriver.py:444: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x0000021A81A7FA40>
+response = {'status': 500, 'value': '{"value":{"error":"session not created","message":"session not created: This version of Chro...07FF75D30ED49]\\n\\tBaseThreadInitThunk [0x00007FFD31557374+20]\\n\\tRtlUserThreadStart [0x00007FFD31E3CC91+33]\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -> None:
+        """
+        Checks that a JSON response from the WebDriver does not have an error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get("status", None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get("value", None)
+            if value_json and isinstance(value_json, str):
+                import json
+    
+                try:
+                    value = json.loads(value_json)
+                    if len(value.keys()) == 1:
+                        value = value["value"]
+                    status = value.get("error", None)
+                    if not status:
+                        status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                        message = value.get("value") or value.get("message")
+                        if not isinstance(message, str):
+                            value = message
+                            message = message.get("message")
+                    else:
+                        message = value.get("message", None)
+                except ValueError:
+                    pass
+    
+        exception_class: Type[WebDriverException]
+        if status in ErrorCode.NO_SUCH_ELEMENT:
+            exception_class = NoSuchElementException
+        elif status in ErrorCode.NO_SUCH_FRAME:
+            exception_class = NoSuchFrameException
+        elif status in ErrorCode.NO_SUCH_SHADOW_ROOT:
+            exception_class = NoSuchShadowRootException
+        elif status in ErrorCode.NO_SUCH_WINDOW:
+            exception_class = NoSuchWindowException
+        elif status in ErrorCode.STALE_ELEMENT_REFERENCE:
+            exception_class = StaleElementReferenceException
+        elif status in ErrorCode.ELEMENT_NOT_VISIBLE:
+            exception_class = ElementNotVisibleException
+        elif status in ErrorCode.INVALID_ELEMENT_STATE:
+            exception_class = InvalidElementStateException
+        elif (
+            status in ErrorCode.INVALID_SELECTOR
+            or status in ErrorCode.INVALID_XPATH_SELECTOR
+            or status in ErrorCode.INVALID_XPATH_SELECTOR_RETURN_TYPER
+        ):
+            exception_class = InvalidSelectorException
+        elif status in ErrorCode.ELEMENT_IS_NOT_SELECTABLE:
+            exception_class = ElementNotSelectableException
+        elif status in ErrorCode.ELEMENT_NOT_INTERACTABLE:
+            exception_class = ElementNotInteractableException
+        elif status in ErrorCode.INVALID_COOKIE_DOMAIN:
+            exception_class = InvalidCookieDomainException
+        elif status in ErrorCode.UNABLE_TO_SET_COOKIE:
+            exception_class = UnableToSetCookieException
+        elif status in ErrorCode.TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.SCRIPT_TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.UNKNOWN_ERROR:
+            exception_class = WebDriverException
+        elif status in ErrorCode.UNEXPECTED_ALERT_OPEN:
+            exception_class = UnexpectedAlertPresentException
+        elif status in ErrorCode.NO_ALERT_OPEN:
+            exception_class = NoAlertPresentException
+        elif status in ErrorCode.IME_NOT_AVAILABLE:
+            exception_class = ImeNotAvailableException
+        elif status in ErrorCode.IME_ENGINE_ACTIVATION_FAILED:
+            exception_class = ImeActivationFailedException
+        elif status in ErrorCode.MOVE_TARGET_OUT_OF_BOUNDS:
+            exception_class = MoveTargetOutOfBoundsException
+        elif status in ErrorCode.JAVASCRIPT_ERROR:
+            exception_class = JavascriptException
+        elif status in ErrorCode.SESSION_NOT_CREATED:
+            exception_class = SessionNotCreatedException
+        elif status in ErrorCode.INVALID_ARGUMENT:
+            exception_class = InvalidArgumentException
+        elif status in ErrorCode.NO_SUCH_COOKIE:
+            exception_class = NoSuchCookieException
+        elif status in ErrorCode.UNABLE_TO_CAPTURE_SCREEN:
+            exception_class = ScreenshotException
+        elif status in ErrorCode.ELEMENT_CLICK_INTERCEPTED:
+            exception_class = ElementClickInterceptedException
+        elif status in ErrorCode.INSECURE_CERTIFICATE:
+            exception_class = InsecureCertificateException
+        elif status in ErrorCode.INVALID_COORDINATES:
+            exception_class = InvalidCoordinatesException
+        elif status in ErrorCode.INVALID_SESSION_ID:
+            exception_class = InvalidSessionIdException
+        elif status in ErrorCode.UNKNOWN_METHOD:
+            exception_class = UnknownMethodException
+        else:
+            exception_class = WebDriverException
+        if not value:
+            value = response["value"]
+        if isinstance(value, str):
+            raise exception_class(value)
+        if message == "" and "message" in value:
+            message = value["message"]
+    
+        screen = None  # type: ignore[assignment]
+        if "screen" in value:
+            screen = value["screen"]
+    
+        stacktrace = None
+        st_value = value.get("stackTrace") or value.get("stacktrace")
+        if st_value:
+            if isinstance(st_value, str):
+                stacktrace = st_value.split("\n")
+            else:
+                stacktrace = []
+                try:
+                    for frame in st_value:
+                        line = frame.get("lineNumber", "")
+                        file = frame.get("fileName", "<anonymous>")
+                        if line:
+                            file = f"{file}:{line}"
+                        meth = frame.get("methodName", "<anonymous>")
+                        if "className" in frame:
+                            meth = "{}.{}".format(frame["className"], meth)
+                        msg = "    at %s (%s)"
+                        msg = msg % (meth, file)
+                        stacktrace.append(msg)
+                except TypeError:
+                    pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if "data" in value:
+                alert_text = value["data"].get("text")
+            elif "alert" in value:
+                alert_text = value["alert"].get("text")
+            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here
+>       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.SessionNotCreatedException: Message: session not created: This version of ChromeDriver only supports Chrome version 131
+E       Current browser version is 135.0.7049.41 with binary path C:\Program Files\Google\Chrome\Application\chrome.exe
+E       Stacktrace:
+E       	GetHandleVerifier [0x00007FF75D3AFB05+28789]
+E       	(No symbol) [0x00007FF75D3186E0]
+E       	(No symbol) [0x00007FF75D1B592A]
+E       	(No symbol) [0x00007FF75D1F7682]
+E       	(No symbol) [0x00007FF75D1F66EB]
+E       	(No symbol) [0x00007FF75D1F0A07]
+E       	(No symbol) [0x00007FF75D1EBC59]
+E       	(No symbol) [0x00007FF75D23A77C]
+E       	(No symbol) [0x00007FF75D239D60]
+E       	(No symbol) [0x00007FF75D22F1E3]
+E       	(No symbol) [0x00007FF75D1FA938]
+E       	(No symbol) [0x00007FF75D1FBAA1]
+E       	GetHandleVerifier [0x00007FF75D6E933D+3410093]
+E       	GetHandleVerifier [0x00007FF75D6FE7DD+3497293]
+E       	GetHandleVerifier [0x00007FF75D6F2A73+3448803]
+E       	GetHandleVerifier [0x00007FF75D477BBB+848171]
+E       	(No symbol) [0x00007FF75D323C3F]
+E       	(No symbol) [0x00007FF75D31F6E4]
+E       	(No symbol) [0x00007FF75D31F87D]
+E       	(No symbol) [0x00007FF75D30ED49]
+E       	BaseThreadInitThunk [0x00007FFD31557374+20]
+E       	RtlUserThreadStart [0x00007FFD31E3CC91+33]
+
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\errorhandler.py:249: SessionNotCreatedException
+____________________ ERROR at setup of test_login_success _____________________
+
+    @pytest.fixture(scope="function")
+    def browser():
+        from selenium import webdriver
+        from selenium.webdriver.chrome.options import Options
+    
+        options = Options()
+        options.add_argument("--headless")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--window-size=1280,1024")
+        options.add_argument("--disable-dev-shm-usage")
+    
+>       driver = webdriver.Chrome(options=options)
+
+tests\conftest.py:76: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\chrome\webdriver.py:81: in __init__
+    super().__init__(
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\chromium\webdriver.py:106: in __init__
+    super().__init__(
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\webdriver.py:288: in __init__
+    self.start_session(capabilities, browser_profile)
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\webdriver.py:381: in start_session
+    response = self.execute(Command.NEW_SESSION, parameters)
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\webdriver.py:444: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x0000021A83303320>
+response = {'status': 500, 'value': '{"value":{"error":"session not created","message":"session not created: This version of Chro...07FF75D30ED49]\\n\\tBaseThreadInitThunk [0x00007FFD31557374+20]\\n\\tRtlUserThreadStart [0x00007FFD31E3CC91+33]\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -> None:
+        """
+        Checks that a JSON response from the WebDriver does not have an error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get("status", None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get("value", None)
+            if value_json and isinstance(value_json, str):
+                import json
+    
+                try:
+                    value = json.loads(value_json)
+                    if len(value.keys()) == 1:
+                        value = value["value"]
+                    status = value.get("error", None)
+                    if not status:
+                        status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                        message = value.get("value") or value.get("message")
+                        if not isinstance(message, str):
+                            value = message
+                            message = message.get("message")
+                    else:
+                        message = value.get("message", None)
+                except ValueError:
+                    pass
+    
+        exception_class: Type[WebDriverException]
+        if status in ErrorCode.NO_SUCH_ELEMENT:
+            exception_class = NoSuchElementException
+        elif status in ErrorCode.NO_SUCH_FRAME:
+            exception_class = NoSuchFrameException
+        elif status in ErrorCode.NO_SUCH_SHADOW_ROOT:
+            exception_class = NoSuchShadowRootException
+        elif status in ErrorCode.NO_SUCH_WINDOW:
+            exception_class = NoSuchWindowException
+        elif status in ErrorCode.STALE_ELEMENT_REFERENCE:
+            exception_class = StaleElementReferenceException
+        elif status in ErrorCode.ELEMENT_NOT_VISIBLE:
+            exception_class = ElementNotVisibleException
+        elif status in ErrorCode.INVALID_ELEMENT_STATE:
+            exception_class = InvalidElementStateException
+        elif (
+            status in ErrorCode.INVALID_SELECTOR
+            or status in ErrorCode.INVALID_XPATH_SELECTOR
+            or status in ErrorCode.INVALID_XPATH_SELECTOR_RETURN_TYPER
+        ):
+            exception_class = InvalidSelectorException
+        elif status in ErrorCode.ELEMENT_IS_NOT_SELECTABLE:
+            exception_class = ElementNotSelectableException
+        elif status in ErrorCode.ELEMENT_NOT_INTERACTABLE:
+            exception_class = ElementNotInteractableException
+        elif status in ErrorCode.INVALID_COOKIE_DOMAIN:
+            exception_class = InvalidCookieDomainException
+        elif status in ErrorCode.UNABLE_TO_SET_COOKIE:
+            exception_class = UnableToSetCookieException
+        elif status in ErrorCode.TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.SCRIPT_TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.UNKNOWN_ERROR:
+            exception_class = WebDriverException
+        elif status in ErrorCode.UNEXPECTED_ALERT_OPEN:
+            exception_class = UnexpectedAlertPresentException
+        elif status in ErrorCode.NO_ALERT_OPEN:
+            exception_class = NoAlertPresentException
+        elif status in ErrorCode.IME_NOT_AVAILABLE:
+            exception_class = ImeNotAvailableException
+        elif status in ErrorCode.IME_ENGINE_ACTIVATION_FAILED:
+            exception_class = ImeActivationFailedException
+        elif status in ErrorCode.MOVE_TARGET_OUT_OF_BOUNDS:
+            exception_class = MoveTargetOutOfBoundsException
+        elif status in ErrorCode.JAVASCRIPT_ERROR:
+            exception_class = JavascriptException
+        elif status in ErrorCode.SESSION_NOT_CREATED:
+            exception_class = SessionNotCreatedException
+        elif status in ErrorCode.INVALID_ARGUMENT:
+            exception_class = InvalidArgumentException
+        elif status in ErrorCode.NO_SUCH_COOKIE:
+            exception_class = NoSuchCookieException
+        elif status in ErrorCode.UNABLE_TO_CAPTURE_SCREEN:
+            exception_class = ScreenshotException
+        elif status in ErrorCode.ELEMENT_CLICK_INTERCEPTED:
+            exception_class = ElementClickInterceptedException
+        elif status in ErrorCode.INSECURE_CERTIFICATE:
+            exception_class = InsecureCertificateException
+        elif status in ErrorCode.INVALID_COORDINATES:
+            exception_class = InvalidCoordinatesException
+        elif status in ErrorCode.INVALID_SESSION_ID:
+            exception_class = InvalidSessionIdException
+        elif status in ErrorCode.UNKNOWN_METHOD:
+            exception_class = UnknownMethodException
+        else:
+            exception_class = WebDriverException
+        if not value:
+            value = response["value"]
+        if isinstance(value, str):
+            raise exception_class(value)
+        if message == "" and "message" in value:
+            message = value["message"]
+    
+        screen = None  # type: ignore[assignment]
+        if "screen" in value:
+            screen = value["screen"]
+    
+        stacktrace = None
+        st_value = value.get("stackTrace") or value.get("stacktrace")
+        if st_value:
+            if isinstance(st_value, str):
+                stacktrace = st_value.split("\n")
+            else:
+                stacktrace = []
+                try:
+                    for frame in st_value:
+                        line = frame.get("lineNumber", "")
+                        file = frame.get("fileName", "<anonymous>")
+                        if line:
+                            file = f"{file}:{line}"
+                        meth = frame.get("methodName", "<anonymous>")
+                        if "className" in frame:
+                            meth = "{}.{}".format(frame["className"], meth)
+                        msg = "    at %s (%s)"
+                        msg = msg % (meth, file)
+                        stacktrace.append(msg)
+                except TypeError:
+                    pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if "data" in value:
+                alert_text = value["data"].get("text")
+            elif "alert" in value:
+                alert_text = value["alert"].get("text")
+            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here
+>       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.SessionNotCreatedException: Message: session not created: This version of ChromeDriver only supports Chrome version 131
+E       Current browser version is 135.0.7049.41 with binary path C:\Program Files\Google\Chrome\Application\chrome.exe
+E       Stacktrace:
+E       	GetHandleVerifier [0x00007FF75D3AFB05+28789]
+E       	(No symbol) [0x00007FF75D3186E0]
+E       	(No symbol) [0x00007FF75D1B592A]
+E       	(No symbol) [0x00007FF75D1F7682]
+E       	(No symbol) [0x00007FF75D1F66EB]
+E       	(No symbol) [0x00007FF75D1F0A07]
+E       	(No symbol) [0x00007FF75D1EBC59]
+E       	(No symbol) [0x00007FF75D23A77C]
+E       	(No symbol) [0x00007FF75D239D60]
+E       	(No symbol) [0x00007FF75D22F1E3]
+E       	(No symbol) [0x00007FF75D1FA938]
+E       	(No symbol) [0x00007FF75D1FBAA1]
+E       	GetHandleVerifier [0x00007FF75D6E933D+3410093]
+E       	GetHandleVerifier [0x00007FF75D6FE7DD+3497293]
+E       	GetHandleVerifier [0x00007FF75D6F2A73+3448803]
+E       	GetHandleVerifier [0x00007FF75D477BBB+848171]
+E       	(No symbol) [0x00007FF75D323C3F]
+E       	(No symbol) [0x00007FF75D31F6E4]
+E       	(No symbol) [0x00007FF75D31F87D]
+E       	(No symbol) [0x00007FF75D30ED49]
+E       	BaseThreadInitThunk [0x00007FFD31557374+20]
+E       	RtlUserThreadStart [0x00007FFD31E3CC91+33]
+
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\errorhandler.py:249: SessionNotCreatedException
+_____________________ ERROR at setup of test_signup_user ______________________
+
+    @pytest.fixture(scope="function")
+    def browser():
+        from selenium import webdriver
+        from selenium.webdriver.chrome.options import Options
+    
+        options = Options()
+        options.add_argument("--headless")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--window-size=1280,1024")
+        options.add_argument("--disable-dev-shm-usage")
+    
+>       driver = webdriver.Chrome(options=options)
+
+tests\conftest.py:76: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\chrome\webdriver.py:81: in __init__
+    super().__init__(
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\chromium\webdriver.py:106: in __init__
+    super().__init__(
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\webdriver.py:288: in __init__
+    self.start_session(capabilities, browser_profile)
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\webdriver.py:381: in start_session
+    response = self.execute(Command.NEW_SESSION, parameters)
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\webdriver.py:444: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x0000021A83302AB0>
+response = {'status': 500, 'value': '{"value":{"error":"session not created","message":"session not created: This version of Chro...07FF75D30ED49]\\n\\tBaseThreadInitThunk [0x00007FFD31557374+20]\\n\\tRtlUserThreadStart [0x00007FFD31E3CC91+33]\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -> None:
+        """
+        Checks that a JSON response from the WebDriver does not have an error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get("status", None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get("value", None)
+            if value_json and isinstance(value_json, str):
+                import json
+    
+                try:
+                    value = json.loads(value_json)
+                    if len(value.keys()) == 1:
+                        value = value["value"]
+                    status = value.get("error", None)
+                    if not status:
+                        status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                        message = value.get("value") or value.get("message")
+                        if not isinstance(message, str):
+                            value = message
+                            message = message.get("message")
+                    else:
+                        message = value.get("message", None)
+                except ValueError:
+                    pass
+    
+        exception_class: Type[WebDriverException]
+        if status in ErrorCode.NO_SUCH_ELEMENT:
+            exception_class = NoSuchElementException
+        elif status in ErrorCode.NO_SUCH_FRAME:
+            exception_class = NoSuchFrameException
+        elif status in ErrorCode.NO_SUCH_SHADOW_ROOT:
+            exception_class = NoSuchShadowRootException
+        elif status in ErrorCode.NO_SUCH_WINDOW:
+            exception_class = NoSuchWindowException
+        elif status in ErrorCode.STALE_ELEMENT_REFERENCE:
+            exception_class = StaleElementReferenceException
+        elif status in ErrorCode.ELEMENT_NOT_VISIBLE:
+            exception_class = ElementNotVisibleException
+        elif status in ErrorCode.INVALID_ELEMENT_STATE:
+            exception_class = InvalidElementStateException
+        elif (
+            status in ErrorCode.INVALID_SELECTOR
+            or status in ErrorCode.INVALID_XPATH_SELECTOR
+            or status in ErrorCode.INVALID_XPATH_SELECTOR_RETURN_TYPER
+        ):
+            exception_class = InvalidSelectorException
+        elif status in ErrorCode.ELEMENT_IS_NOT_SELECTABLE:
+            exception_class = ElementNotSelectableException
+        elif status in ErrorCode.ELEMENT_NOT_INTERACTABLE:
+            exception_class = ElementNotInteractableException
+        elif status in ErrorCode.INVALID_COOKIE_DOMAIN:
+            exception_class = InvalidCookieDomainException
+        elif status in ErrorCode.UNABLE_TO_SET_COOKIE:
+            exception_class = UnableToSetCookieException
+        elif status in ErrorCode.TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.SCRIPT_TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.UNKNOWN_ERROR:
+            exception_class = WebDriverException
+        elif status in ErrorCode.UNEXPECTED_ALERT_OPEN:
+            exception_class = UnexpectedAlertPresentException
+        elif status in ErrorCode.NO_ALERT_OPEN:
+            exception_class = NoAlertPresentException
+        elif status in ErrorCode.IME_NOT_AVAILABLE:
+            exception_class = ImeNotAvailableException
+        elif status in ErrorCode.IME_ENGINE_ACTIVATION_FAILED:
+            exception_class = ImeActivationFailedException
+        elif status in ErrorCode.MOVE_TARGET_OUT_OF_BOUNDS:
+            exception_class = MoveTargetOutOfBoundsException
+        elif status in ErrorCode.JAVASCRIPT_ERROR:
+            exception_class = JavascriptException
+        elif status in ErrorCode.SESSION_NOT_CREATED:
+            exception_class = SessionNotCreatedException
+        elif status in ErrorCode.INVALID_ARGUMENT:
+            exception_class = InvalidArgumentException
+        elif status in ErrorCode.NO_SUCH_COOKIE:
+            exception_class = NoSuchCookieException
+        elif status in ErrorCode.UNABLE_TO_CAPTURE_SCREEN:
+            exception_class = ScreenshotException
+        elif status in ErrorCode.ELEMENT_CLICK_INTERCEPTED:
+            exception_class = ElementClickInterceptedException
+        elif status in ErrorCode.INSECURE_CERTIFICATE:
+            exception_class = InsecureCertificateException
+        elif status in ErrorCode.INVALID_COORDINATES:
+            exception_class = InvalidCoordinatesException
+        elif status in ErrorCode.INVALID_SESSION_ID:
+            exception_class = InvalidSessionIdException
+        elif status in ErrorCode.UNKNOWN_METHOD:
+            exception_class = UnknownMethodException
+        else:
+            exception_class = WebDriverException
+        if not value:
+            value = response["value"]
+        if isinstance(value, str):
+            raise exception_class(value)
+        if message == "" and "message" in value:
+            message = value["message"]
+    
+        screen = None  # type: ignore[assignment]
+        if "screen" in value:
+            screen = value["screen"]
+    
+        stacktrace = None
+        st_value = value.get("stackTrace") or value.get("stacktrace")
+        if st_value:
+            if isinstance(st_value, str):
+                stacktrace = st_value.split("\n")
+            else:
+                stacktrace = []
+                try:
+                    for frame in st_value:
+                        line = frame.get("lineNumber", "")
+                        file = frame.get("fileName", "<anonymous>")
+                        if line:
+                            file = f"{file}:{line}"
+                        meth = frame.get("methodName", "<anonymous>")
+                        if "className" in frame:
+                            meth = "{}.{}".format(frame["className"], meth)
+                        msg = "    at %s (%s)"
+                        msg = msg % (meth, file)
+                        stacktrace.append(msg)
+                except TypeError:
+                    pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if "data" in value:
+                alert_text = value["data"].get("text")
+            elif "alert" in value:
+                alert_text = value["alert"].get("text")
+            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here
+>       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.SessionNotCreatedException: Message: session not created: This version of ChromeDriver only supports Chrome version 131
+E       Current browser version is 135.0.7049.41 with binary path C:\Program Files\Google\Chrome\Application\chrome.exe
+E       Stacktrace:
+E       	GetHandleVerifier [0x00007FF75D3AFB05+28789]
+E       	(No symbol) [0x00007FF75D3186E0]
+E       	(No symbol) [0x00007FF75D1B592A]
+E       	(No symbol) [0x00007FF75D1F7682]
+E       	(No symbol) [0x00007FF75D1F66EB]
+E       	(No symbol) [0x00007FF75D1F0A07]
+E       	(No symbol) [0x00007FF75D1EBC59]
+E       	(No symbol) [0x00007FF75D23A77C]
+E       	(No symbol) [0x00007FF75D239D60]
+E       	(No symbol) [0x00007FF75D22F1E3]
+E       	(No symbol) [0x00007FF75D1FA938]
+E       	(No symbol) [0x00007FF75D1FBAA1]
+E       	GetHandleVerifier [0x00007FF75D6E933D+3410093]
+E       	GetHandleVerifier [0x00007FF75D6FE7DD+3497293]
+E       	GetHandleVerifier [0x00007FF75D6F2A73+3448803]
+E       	GetHandleVerifier [0x00007FF75D477BBB+848171]
+E       	(No symbol) [0x00007FF75D323C3F]
+E       	(No symbol) [0x00007FF75D31F6E4]
+E       	(No symbol) [0x00007FF75D31F87D]
+E       	(No symbol) [0x00007FF75D30ED49]
+E       	BaseThreadInitThunk [0x00007FFD31557374+20]
+E       	RtlUserThreadStart [0x00007FFD31E3CC91+33]
+
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\errorhandler.py:249: SessionNotCreatedException
+_____________________ ERROR at setup of test_capture_home _____________________
+
+    @pytest.fixture(scope="function")
+    def browser():
+        from selenium import webdriver
+        from selenium.webdriver.chrome.options import Options
+    
+        options = Options()
+        options.add_argument("--headless")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--window-size=1280,1024")
+        options.add_argument("--disable-dev-shm-usage")
+    
+>       driver = webdriver.Chrome(options=options)
+
+tests\conftest.py:76: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\chrome\webdriver.py:81: in __init__
+    super().__init__(
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\chromium\webdriver.py:106: in __init__
+    super().__init__(
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\webdriver.py:288: in __init__
+    self.start_session(capabilities, browser_profile)
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\webdriver.py:381: in start_session
+    response = self.execute(Command.NEW_SESSION, parameters)
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\webdriver.py:444: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x0000021A83310A10>
+response = {'status': 500, 'value': '{"value":{"error":"session not created","message":"session not created: This version of Chro...07FF75D30ED49]\\n\\tBaseThreadInitThunk [0x00007FFD31557374+20]\\n\\tRtlUserThreadStart [0x00007FFD31E3CC91+33]\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -> None:
+        """
+        Checks that a JSON response from the WebDriver does not have an error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get("status", None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get("value", None)
+            if value_json and isinstance(value_json, str):
+                import json
+    
+                try:
+                    value = json.loads(value_json)
+                    if len(value.keys()) == 1:
+                        value = value["value"]
+                    status = value.get("error", None)
+                    if not status:
+                        status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                        message = value.get("value") or value.get("message")
+                        if not isinstance(message, str):
+                            value = message
+                            message = message.get("message")
+                    else:
+                        message = value.get("message", None)
+                except ValueError:
+                    pass
+    
+        exception_class: Type[WebDriverException]
+        if status in ErrorCode.NO_SUCH_ELEMENT:
+            exception_class = NoSuchElementException
+        elif status in ErrorCode.NO_SUCH_FRAME:
+            exception_class = NoSuchFrameException
+        elif status in ErrorCode.NO_SUCH_SHADOW_ROOT:
+            exception_class = NoSuchShadowRootException
+        elif status in ErrorCode.NO_SUCH_WINDOW:
+            exception_class = NoSuchWindowException
+        elif status in ErrorCode.STALE_ELEMENT_REFERENCE:
+            exception_class = StaleElementReferenceException
+        elif status in ErrorCode.ELEMENT_NOT_VISIBLE:
+            exception_class = ElementNotVisibleException
+        elif status in ErrorCode.INVALID_ELEMENT_STATE:
+            exception_class = InvalidElementStateException
+        elif (
+            status in ErrorCode.INVALID_SELECTOR
+            or status in ErrorCode.INVALID_XPATH_SELECTOR
+            or status in ErrorCode.INVALID_XPATH_SELECTOR_RETURN_TYPER
+        ):
+            exception_class = InvalidSelectorException
+        elif status in ErrorCode.ELEMENT_IS_NOT_SELECTABLE:
+            exception_class = ElementNotSelectableException
+        elif status in ErrorCode.ELEMENT_NOT_INTERACTABLE:
+            exception_class = ElementNotInteractableException
+        elif status in ErrorCode.INVALID_COOKIE_DOMAIN:
+            exception_class = InvalidCookieDomainException
+        elif status in ErrorCode.UNABLE_TO_SET_COOKIE:
+            exception_class = UnableToSetCookieException
+        elif status in ErrorCode.TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.SCRIPT_TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.UNKNOWN_ERROR:
+            exception_class = WebDriverException
+        elif status in ErrorCode.UNEXPECTED_ALERT_OPEN:
+            exception_class = UnexpectedAlertPresentException
+        elif status in ErrorCode.NO_ALERT_OPEN:
+            exception_class = NoAlertPresentException
+        elif status in ErrorCode.IME_NOT_AVAILABLE:
+            exception_class = ImeNotAvailableException
+        elif status in ErrorCode.IME_ENGINE_ACTIVATION_FAILED:
+            exception_class = ImeActivationFailedException
+        elif status in ErrorCode.MOVE_TARGET_OUT_OF_BOUNDS:
+            exception_class = MoveTargetOutOfBoundsException
+        elif status in ErrorCode.JAVASCRIPT_ERROR:
+            exception_class = JavascriptException
+        elif status in ErrorCode.SESSION_NOT_CREATED:
+            exception_class = SessionNotCreatedException
+        elif status in ErrorCode.INVALID_ARGUMENT:
+            exception_class = InvalidArgumentException
+        elif status in ErrorCode.NO_SUCH_COOKIE:
+            exception_class = NoSuchCookieException
+        elif status in ErrorCode.UNABLE_TO_CAPTURE_SCREEN:
+            exception_class = ScreenshotException
+        elif status in ErrorCode.ELEMENT_CLICK_INTERCEPTED:
+            exception_class = ElementClickInterceptedException
+        elif status in ErrorCode.INSECURE_CERTIFICATE:
+            exception_class = InsecureCertificateException
+        elif status in ErrorCode.INVALID_COORDINATES:
+            exception_class = InvalidCoordinatesException
+        elif status in ErrorCode.INVALID_SESSION_ID:
+            exception_class = InvalidSessionIdException
+        elif status in ErrorCode.UNKNOWN_METHOD:
+            exception_class = UnknownMethodException
+        else:
+            exception_class = WebDriverException
+        if not value:
+            value = response["value"]
+        if isinstance(value, str):
+            raise exception_class(value)
+        if message == "" and "message" in value:
+            message = value["message"]
+    
+        screen = None  # type: ignore[assignment]
+        if "screen" in value:
+            screen = value["screen"]
+    
+        stacktrace = None
+        st_value = value.get("stackTrace") or value.get("stacktrace")
+        if st_value:
+            if isinstance(st_value, str):
+                stacktrace = st_value.split("\n")
+            else:
+                stacktrace = []
+                try:
+                    for frame in st_value:
+                        line = frame.get("lineNumber", "")
+                        file = frame.get("fileName", "<anonymous>")
+                        if line:
+                            file = f"{file}:{line}"
+                        meth = frame.get("methodName", "<anonymous>")
+                        if "className" in frame:
+                            meth = "{}.{}".format(frame["className"], meth)
+                        msg = "    at %s (%s)"
+                        msg = msg % (meth, file)
+                        stacktrace.append(msg)
+                except TypeError:
+                    pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if "data" in value:
+                alert_text = value["data"].get("text")
+            elif "alert" in value:
+                alert_text = value["alert"].get("text")
+            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here
+>       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.SessionNotCreatedException: Message: session not created: This version of ChromeDriver only supports Chrome version 131
+E       Current browser version is 135.0.7049.41 with binary path C:\Program Files\Google\Chrome\Application\chrome.exe
+E       Stacktrace:
+E       	GetHandleVerifier [0x00007FF75D3AFB05+28789]
+E       	(No symbol) [0x00007FF75D3186E0]
+E       	(No symbol) [0x00007FF75D1B592A]
+E       	(No symbol) [0x00007FF75D1F7682]
+E       	(No symbol) [0x00007FF75D1F66EB]
+E       	(No symbol) [0x00007FF75D1F0A07]
+E       	(No symbol) [0x00007FF75D1EBC59]
+E       	(No symbol) [0x00007FF75D23A77C]
+E       	(No symbol) [0x00007FF75D239D60]
+E       	(No symbol) [0x00007FF75D22F1E3]
+E       	(No symbol) [0x00007FF75D1FA938]
+E       	(No symbol) [0x00007FF75D1FBAA1]
+E       	GetHandleVerifier [0x00007FF75D6E933D+3410093]
+E       	GetHandleVerifier [0x00007FF75D6FE7DD+3497293]
+E       	GetHandleVerifier [0x00007FF75D6F2A73+3448803]
+E       	GetHandleVerifier [0x00007FF75D477BBB+848171]
+E       	(No symbol) [0x00007FF75D323C3F]
+E       	(No symbol) [0x00007FF75D31F6E4]
+E       	(No symbol) [0x00007FF75D31F87D]
+E       	(No symbol) [0x00007FF75D30ED49]
+E       	BaseThreadInitThunk [0x00007FFD31557374+20]
+E       	RtlUserThreadStart [0x00007FFD31E3CC91+33]
+
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\errorhandler.py:249: SessionNotCreatedException
+__________________ ERROR at setup of test_edit_user_profile ___________________
+
+    @pytest.fixture(scope="function")
+    def browser():
+        from selenium import webdriver
+        from selenium.webdriver.chrome.options import Options
+    
+        options = Options()
+        options.add_argument("--headless")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--window-size=1280,1024")
+        options.add_argument("--disable-dev-shm-usage")
+    
+>       driver = webdriver.Chrome(options=options)
+
+tests\conftest.py:76: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\chrome\webdriver.py:81: in __init__
+    super().__init__(
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\chromium\webdriver.py:106: in __init__
+    super().__init__(
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\webdriver.py:288: in __init__
+    self.start_session(capabilities, browser_profile)
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\webdriver.py:381: in start_session
+    response = self.execute(Command.NEW_SESSION, parameters)
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\webdriver.py:444: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x0000021A83300980>
+response = {'status': 500, 'value': '{"value":{"error":"session not created","message":"session not created: This version of Chro...07FF75D30ED49]\\n\\tBaseThreadInitThunk [0x00007FFD31557374+20]\\n\\tRtlUserThreadStart [0x00007FFD31E3CC91+33]\\n"}}'}
+
+    def check_response(self, response: Dict[str, Any]) -> None:
+        """
+        Checks that a JSON response from the WebDriver does not have an error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get("status", None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get("value", None)
+            if value_json and isinstance(value_json, str):
+                import json
+    
+                try:
+                    value = json.loads(value_json)
+                    if len(value.keys()) == 1:
+                        value = value["value"]
+                    status = value.get("error", None)
+                    if not status:
+                        status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                        message = value.get("value") or value.get("message")
+                        if not isinstance(message, str):
+                            value = message
+                            message = message.get("message")
+                    else:
+                        message = value.get("message", None)
+                except ValueError:
+                    pass
+    
+        exception_class: Type[WebDriverException]
+        if status in ErrorCode.NO_SUCH_ELEMENT:
+            exception_class = NoSuchElementException
+        elif status in ErrorCode.NO_SUCH_FRAME:
+            exception_class = NoSuchFrameException
+        elif status in ErrorCode.NO_SUCH_SHADOW_ROOT:
+            exception_class = NoSuchShadowRootException
+        elif status in ErrorCode.NO_SUCH_WINDOW:
+            exception_class = NoSuchWindowException
+        elif status in ErrorCode.STALE_ELEMENT_REFERENCE:
+            exception_class = StaleElementReferenceException
+        elif status in ErrorCode.ELEMENT_NOT_VISIBLE:
+            exception_class = ElementNotVisibleException
+        elif status in ErrorCode.INVALID_ELEMENT_STATE:
+            exception_class = InvalidElementStateException
+        elif (
+            status in ErrorCode.INVALID_SELECTOR
+            or status in ErrorCode.INVALID_XPATH_SELECTOR
+            or status in ErrorCode.INVALID_XPATH_SELECTOR_RETURN_TYPER
+        ):
+            exception_class = InvalidSelectorException
+        elif status in ErrorCode.ELEMENT_IS_NOT_SELECTABLE:
+            exception_class = ElementNotSelectableException
+        elif status in ErrorCode.ELEMENT_NOT_INTERACTABLE:
+            exception_class = ElementNotInteractableException
+        elif status in ErrorCode.INVALID_COOKIE_DOMAIN:
+            exception_class = InvalidCookieDomainException
+        elif status in ErrorCode.UNABLE_TO_SET_COOKIE:
+            exception_class = UnableToSetCookieException
+        elif status in ErrorCode.TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.SCRIPT_TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.UNKNOWN_ERROR:
+            exception_class = WebDriverException
+        elif status in ErrorCode.UNEXPECTED_ALERT_OPEN:
+            exception_class = UnexpectedAlertPresentException
+        elif status in ErrorCode.NO_ALERT_OPEN:
+            exception_class = NoAlertPresentException
+        elif status in ErrorCode.IME_NOT_AVAILABLE:
+            exception_class = ImeNotAvailableException
+        elif status in ErrorCode.IME_ENGINE_ACTIVATION_FAILED:
+            exception_class = ImeActivationFailedException
+        elif status in ErrorCode.MOVE_TARGET_OUT_OF_BOUNDS:
+            exception_class = MoveTargetOutOfBoundsException
+        elif status in ErrorCode.JAVASCRIPT_ERROR:
+            exception_class = JavascriptException
+        elif status in ErrorCode.SESSION_NOT_CREATED:
+            exception_class = SessionNotCreatedException
+        elif status in ErrorCode.INVALID_ARGUMENT:
+            exception_class = InvalidArgumentException
+        elif status in ErrorCode.NO_SUCH_COOKIE:
+            exception_class = NoSuchCookieException
+        elif status in ErrorCode.UNABLE_TO_CAPTURE_SCREEN:
+            exception_class = ScreenshotException
+        elif status in ErrorCode.ELEMENT_CLICK_INTERCEPTED:
+            exception_class = ElementClickInterceptedException
+        elif status in ErrorCode.INSECURE_CERTIFICATE:
+            exception_class = InsecureCertificateException
+        elif status in ErrorCode.INVALID_COORDINATES:
+            exception_class = InvalidCoordinatesException
+        elif status in ErrorCode.INVALID_SESSION_ID:
+            exception_class = InvalidSessionIdException
+        elif status in ErrorCode.UNKNOWN_METHOD:
+            exception_class = UnknownMethodException
+        else:
+            exception_class = WebDriverException
+        if not value:
+            value = response["value"]
+        if isinstance(value, str):
+            raise exception_class(value)
+        if message == "" and "message" in value:
+            message = value["message"]
+    
+        screen = None  # type: ignore[assignment]
+        if "screen" in value:
+            screen = value["screen"]
+    
+        stacktrace = None
+        st_value = value.get("stackTrace") or value.get("stacktrace")
+        if st_value:
+            if isinstance(st_value, str):
+                stacktrace = st_value.split("\n")
+            else:
+                stacktrace = []
+                try:
+                    for frame in st_value:
+                        line = frame.get("lineNumber", "")
+                        file = frame.get("fileName", "<anonymous>")
+                        if line:
+                            file = f"{file}:{line}"
+                        meth = frame.get("methodName", "<anonymous>")
+                        if "className" in frame:
+                            meth = "{}.{}".format(frame["className"], meth)
+                        msg = "    at %s (%s)"
+                        msg = msg % (meth, file)
+                        stacktrace.append(msg)
+                except TypeError:
+                    pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if "data" in value:
+                alert_text = value["data"].get("text")
+            elif "alert" in value:
+                alert_text = value["alert"].get("text")
+            raise exception_class(message, screen, stacktrace, alert_text)  # type: ignore[call-arg]  # mypy is not smart enough here
+>       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.SessionNotCreatedException: Message: session not created: This version of ChromeDriver only supports Chrome version 131
+E       Current browser version is 135.0.7049.41 with binary path C:\Program Files\Google\Chrome\Application\chrome.exe
+E       Stacktrace:
+E       	GetHandleVerifier [0x00007FF75D3AFB05+28789]
+E       	(No symbol) [0x00007FF75D3186E0]
+E       	(No symbol) [0x00007FF75D1B592A]
+E       	(No symbol) [0x00007FF75D1F7682]
+E       	(No symbol) [0x00007FF75D1F66EB]
+E       	(No symbol) [0x00007FF75D1F0A07]
+E       	(No symbol) [0x00007FF75D1EBC59]
+E       	(No symbol) [0x00007FF75D23A77C]
+E       	(No symbol) [0x00007FF75D239D60]
+E       	(No symbol) [0x00007FF75D22F1E3]
+E       	(No symbol) [0x00007FF75D1FA938]
+E       	(No symbol) [0x00007FF75D1FBAA1]
+E       	GetHandleVerifier [0x00007FF75D6E933D+3410093]
+E       	GetHandleVerifier [0x00007FF75D6FE7DD+3497293]
+E       	GetHandleVerifier [0x00007FF75D6F2A73+3448803]
+E       	GetHandleVerifier [0x00007FF75D477BBB+848171]
+E       	(No symbol) [0x00007FF75D323C3F]
+E       	(No symbol) [0x00007FF75D31F6E4]
+E       	(No symbol) [0x00007FF75D31F87D]
+E       	(No symbol) [0x00007FF75D30ED49]
+E       	BaseThreadInitThunk [0x00007FFD31557374+20]
+E       	RtlUserThreadStart [0x00007FFD31E3CC91+33]
+
+..\..\AppData\Roaming\Python\Python312\site-packages\selenium\webdriver\remote\errorhandler.py:249: SessionNotCreatedException
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.12.6-final-0 _______________
+
+Coverage XML written to file coverage.xml
+=========================== short test summary info ===========================
+ERROR tests/ui/test_alert_messages.py::test_alert_display - selenium.common.e...
+ERROR tests/ui/test_login.py::test_login_success - selenium.common.exceptions...
+ERROR tests/ui/test_signup_ui.py::test_signup_user - selenium.common.exceptio...
+ERROR tests/ui/test_ui_visuals.py::test_capture_home - selenium.common.except...
+ERROR tests/ui/test_user_profile_ui.py::test_edit_user_profile - selenium.com...
+======================== 8 passed, 5 errors in 41.64s =========================

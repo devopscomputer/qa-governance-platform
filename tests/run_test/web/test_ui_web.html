@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QA Test Mock</title>
+  <style>
+    body { font-family: sans-serif; padding: 30px; }
+    .alert-success { color: green; margin-top: 10px; }
+    .alert-error { color: red; margin-top: 10px; }
+    input { display: block; margin-bottom: 10px; padding: 5px; width: 250px; }
+    button { margin-top: 5px; padding: 8px 16px; }
+    hr { margin: 30px 0; }
+  </style>
+</head>
+<body>
+
+  <h1>QA Test Mock Interface</h1>
+
+  <!-- Login -->
+  <h2>Login</h2>
+  <input id="username" placeholder="Username">
+  <input id="password" type="password" placeholder="Password">
+  <button id="btnLogin">Login</button>
+  <div class="alert-success" style="display: none;">Login realizado com sucesso</div>
+  <div class="alert-error" style="display: none;">Erro no login</div>
+
+  <hr>
+
+  <!-- Cadastro -->
+  <h2>Cadastro</h2>
+  <input id="inputName" placeholder="Nome completo">
+  <input id="inputEmail" type="email" placeholder="Email">
+  <button id="btnSignup">Cadastrar</button>
+  <div class="alert-success" style="display: none;">Cadastro efetuado</div>
+  <div class="alert-error" style="display: none;">Erro no cadastro</div>
+
+  <hr>
+
+  <!-- Perfil -->
+  <h2>Editar Perfil</h2>
+  <input id="username" placeholder="Novo nome">
+  <button id="btn-save-profile">Salvar</button>
+  <div class="alert-success" style="display: none;">Perfil atualizado</div>
+
+  <script>
+    // Login
+    document.getElementById("btnLogin").onclick = function () {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      if (user === "admin" && pass === "123") {
+        document.querySelectorAll('.alert-success')[0].style.display = "block";
+        document.querySelectorAll('.alert-error')[0].style.display = "none";
+      } else {
+        document.querySelectorAll('.alert-success')[0].style.display = "none";
+        document.querySelectorAll('.alert-error')[0].style.display = "block";
+      }
+    };
+
+    // Cadastro
+    document.getElementById("btnSignup").onclick = function () {
+      const name = document.getElementById("inputName").value;
+      const email = document.getElementById("inputEmail").value;
+      if (name && email.includes("@")) {
+        document.querySelectorAll('.alert-success')[1].style.display = "block";
+        document.querySelectorAll('.alert-error')[1].style.display = "none";
+      } else {
+        document.querySelectorAll('.alert-success')[1].style.display = "none";
+        document.querySelectorAll('.alert-error')[1].style.display = "block";
+      }
+    };
+
+    // Perfil
+    document.getElementById("btn-save-profile").onclick = function () {
+      document.querySelectorAll('.alert-success')[2].style.display = "block";
+    };
+  </script>
+
+</body>
+</html>

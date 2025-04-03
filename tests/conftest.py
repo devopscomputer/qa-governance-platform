@@ -72,6 +72,10 @@ def browser():
     options.add_argument("--no-sandbox")
     options.add_argument("--window-size=1280,1024")
     options.add_argument("--disable-dev-shm-usage")
+    options.add_argument('--ignore-certificate-errors')
+
+    # Garante que o diretório screenshots exista
+    os.makedirs("reports/screenshots", exist_ok=True)
 
     driver = webdriver.Chrome(options=options)
     yield driver

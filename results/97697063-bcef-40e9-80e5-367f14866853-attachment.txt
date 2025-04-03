@@ -1,0 +1,4 @@
+Request: PUT https://jsonplaceholder.typicode.com/users/1
+Payload: {'name': 'João Atualizado', 'email': 'joao.atualizado@example.com'}
+Status: 200
+Response JSON: {'name': 'João Atualizado', 'email': 'joao.atualizado@example.com', 'id': 1}

@@ -7,10 +7,10 @@ from selenium.webdriver.common.by import By
 @allure.severity(allure.severity_level.TRIVIAL)
 @pytest.mark.ui
 def test_capture_home(browser):
-    browser.get("https://exemplo.com")
+    browser.get("https://the-internet.herokuapp.com")
 
     with allure.step("Capturar screenshot da homepage"):
         browser.save_screenshot("reports/screenshots/home.png")
         allure.attach.file("reports/screenshots/home.png", name="Home Screenshot", attachment_type=allure.attachment_type.PNG)
 
-    assert "Bem-vindo" in browser.page_source
+    assert "Welcome to the-internet" in browser.page_source

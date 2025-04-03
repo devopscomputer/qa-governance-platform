@@ -7,10 +7,11 @@ from selenium.webdriver.common.by import By
 @allure.severity(allure.severity_level.MINOR)
 @pytest.mark.ui
 def test_alert_display(browser):
-    browser.get("https://exemplo.com/login")
+    browser.get("https://the-internet.herokuapp.com/login")
+
 
     with allure.step("Tentar login sem senha"):
-        browser.find_element(By.NAME, "email").send_keys("sem.senha@example.com")
+        browser.find_element(By.NAME, "username").send_keys("sem.senha@example.com")
         browser.find_element(By.ID, "btn-login").click()
 
     with allure.step("Validar alerta de erro"):

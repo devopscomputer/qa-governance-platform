@@ -7,10 +7,10 @@ from selenium.webdriver.common.by import By
 @allure.severity(allure.severity_level.NORMAL)
 @pytest.mark.ui
 def test_signup_user(browser):
-    browser.get("https://exemplo.com/signup")
+    browser.get("https://the-internet.herokuapp.com/login")
 
     with allure.step("Preencher formulário de cadastro"):
-        browser.find_element(By.NAME, "name").send_keys("Usuário Teste")
+        browser.find_element(By.NAME, "username").send_keys("Usuário Teste")
         browser.find_element(By.NAME, "email").send_keys("usuario@teste.com")
         browser.find_element(By.NAME, "password").send_keys("123456")
         browser.find_element(By.NAME, "confirm_password").send_keys("123456")

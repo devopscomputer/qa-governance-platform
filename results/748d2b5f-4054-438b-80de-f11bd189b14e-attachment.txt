@@ -1,0 +1,2 @@
+✅ DELETE executado com sucesso para user_id=2
+✅ Validação da resposta concluída com sucesso.
